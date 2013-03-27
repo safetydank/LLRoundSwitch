@@ -264,10 +264,15 @@
 
 - (void)setOn:(BOOL)newOn
 {
-	[self setOn:newOn animated:NO];
+    [self setOn:newOn animated:NO sendActions:YES];
 }
 
 - (void)setOn:(BOOL)newOn animated:(BOOL)animated
+{
+    [self setOn:newOn animated:animated sendActions:YES];
+}
+
+- (void)setOn:(BOOL)newOn animated:(BOOL)animated sendActions:(BOOL)sendActions
 {
 	BOOL previousOn = self.on;
 	on = newOn;
@@ -321,7 +326,7 @@
 			ignoreTap = NO;
             
 			// send the action here so it get's sent at the end of the animations
-			if (previousOn != on)
+			if (sendActions && previousOn != on)
 				[self sendActionsForControlEvents:UIControlEventValueChanged];
 		}];
         
